@@ -1,27 +1,15 @@
-import Geocode from "react-geocode";
+export const LOC = 'LOC';
 
-Geocode.setApiKey("AIzaSyBnzhWnCSkCizWDPnob2VFDPegryBR4eik");
-Geocode.setLanguage("kor");
-Geocode.setRegion("kor");
-
-export const SEARCHLOC = 'SEARCHLOC';
-
-export const searchLoc = (address) => ({ type: SEARCHLOC, loc: address })
+export const loc = (loc) => ({ type: LOC, loc })
 
 const initialState = {
-  lat: 37.555946,
-  lng: 126.972317
+  loc: ''
 }
 
 const location = (state = initialState, action) => {
   switch (action.type) {
-    case SEARCHLOC:
-      Geocode.fromAddress(action.loc)
-        .then((res) => {
-          state = res.results[0].geometry.location;
-        }
-        );
-      return state
+    case LOC:
+      return { ...state, loc: action.loc }
     default:
       return state
   }

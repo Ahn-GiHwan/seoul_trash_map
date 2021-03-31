@@ -70,13 +70,13 @@ const Icons = styled.div`
 `
 const MapIcon = styled.div`
   padding: 10px;
-  border: 3px solid orange;
+  border: 3px solid #FFA500;
   border-radius: 10px;
   transition: .2s;
   cursor: pointer;
   :hover{
     transform: scale(1.2);
-    background-color: orange;
+    background-color: #FFA500;
     color: white;
   }
 `
