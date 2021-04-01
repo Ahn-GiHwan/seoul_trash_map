@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -107,6 +107,7 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
 
   const [width, setWidth] = useState({ 'marginLeft': '-500px' })
   const [border, setBorder] = useState({ 'borderRight': '5px solid #FFA500' })
+  const [isSearch, setIsSearch] = useState(false)
 
   const loc = useSelector(state => state.location.loc)
   const isOpen = useSelector(state => state.isOpen.isOpen)
@@ -120,20 +121,26 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
     dispatch({ type: 'CLOSE' })
   }
 
+  useEffect(() => {
+    isShowState()
+    chageBorder()
+    changeBtn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
+
   const changeIsOpen = () => isOpen ? onClose() : onOpen()
-  const isShowState = () => isOpen ? setWidth({ 'marginLeft': '-500px' }) : setWidth({ 'marginLeft': '0' })
-  const chageBorder = () => isOpen ? setBorder({ 'borderRight': '5px solid #FFA500' }) : setBorder({ 'borderRight': '5px solid #eee' })
+  const isShowState = () => isOpen ? setWidth({ 'marginLeft': '0' }) : setWidth({ 'marginLeft': '-500px' })
+  const chageBorder = () => isOpen ? setBorder({ 'borderRight': '5px solid #eee' }) : setBorder({ 'borderRight': '5px solid #FFA500' })
   const changeBtn = () => {
     const btnEl = document.querySelector('.btn')
     if (isOpen) {
-      btnEl.style.backgroundColor = 'white'
-    } else {
       btnEl.style.backgroundColor = '#F2DA00'
+    } else {
+      btnEl.style.backgroundColor = 'white'
 
     }
   }
-  const btnEl = document.querySelector('.btn')
-  console.log(btnEl)
+
   const onClickBtn = () => {
     changeIsOpen()
     isShowState()
@@ -177,7 +184,7 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
     setZoom(17)
   };
 
-  const view = loc === '' ? uniqDate(file).map((data, i) => {
+  const stateLists = loc === '' ? uniqDate(file).map((data, i) => {
     return (
       <Loc key={i} onClick={() => onClickLoc(data.label)}>
         {data.label}
@@ -211,41 +218,64 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
       </div>
     </>
   )
+  const searchModal = isSearch ?
+    <>
+      <SearchBack>
+      </SearchBack>
+      <SearchDiv>
+        <InputDiv>
+          <SearchSpan className='material-icons size2'>search</SearchSpan>
+          <Input type="text" placeholder='ex) 노원구 하계역' className='input' autoFocus />
+        </InputDiv>
+        <ResultDiv>
+          아직 서비스 준비중...
+        </ResultDiv>
+        <CloseBtn
+          className='material-icons'
+          onClick={() => setIsSearch(false)}>
+          backspace
+        </CloseBtn>
+      </SearchDiv>
+    </> : ''
+
   return (
-    <Navbar className="navbar">
-      <Bar style={border}>
-        <Link to='/'>
-          <HomeIcon>
-            <Span className="material-icons size1">home</Span>
-          </HomeIcon>
-        </Link>
-        <Link to='/chart'>
-          <ChartIcon>
-            <Span className="material-icons size1">leaderboard</Span>
-          </ChartIcon>
-        </Link>
-        <SearchIcon onClick={() => alert("아직 준비 중인 기능입니다")}>
-          <Span
-            className="material-icons size1"
-            style={{ 'transform': 'scale(1.1)', 'fontWeight': '1000' }}>
-            search
+    <>
+      <Navbar className="navbar">
+        <Bar style={border}>
+          <Link to='/'>
+            <HomeIcon>
+              <Span className="material-icons size1">home</Span>
+            </HomeIcon>
+          </Link>
+          <Link to='/chart'>
+            <ChartIcon>
+              <Span className="material-icons size1">leaderboard</Span>
+            </ChartIcon>
+          </Link>
+          <SearchIcon onClick={() => setIsSearch(true)}>
+            <Span
+              className="material-icons size1"
+              style={{ 'transform': 'scale(1.1)', 'fontWeight': '1000' }}>
+              search
             </Span>
-        </SearchIcon>
-        <MenuIcon onClick={onClickBtn_phone} className="btn" >
-          <Span
-            className='material-icons size1'
-            style={{ 'transform': 'scale(1.1)', 'fontWeight': '1000' }}>
-            {isOpen ? 'clear' : 'menu'}
-          </Span>
-        </MenuIcon>
-      </Bar>
-      <State style={width}>
-        {view}
-      </State>
-      <ForwardIcon className="material-icons size1" onClick={onClickBtn}>
-        {isOpen ? 'arrow_back' : 'arrow_forward'}
-      </ForwardIcon>
-    </Navbar>
+          </SearchIcon>
+          <MenuIcon onClick={onClickBtn_phone} className="btn" >
+            <Span
+              className='material-icons size1'
+              style={{ 'transform': 'scale(1.1)', 'fontWeight': '1000' }}>
+              {isOpen ? 'clear' : 'menu'}
+            </Span>
+          </MenuIcon>
+        </Bar>
+        <State style={width}>
+          {stateLists}
+        </State>
+        <ForwardIcon className="material-icons size1" onClick={onClickBtn}>
+          {isOpen ? 'arrow_back' : 'arrow_forward'}
+        </ForwardIcon>
+      </Navbar>
+      {searchModal}
+    </>
   );
 }
 
@@ -326,6 +356,8 @@ const ForwardIcon = styled.span`
   cursor: pointer;
 `
 const HomeIcon = styled.div`
+  display:flex;
+  justify-content: center;
   margin: 10px 0 5px;
   padding: 10px;
   border: 3px solid #FFA500;
@@ -342,6 +374,8 @@ const HomeIcon = styled.div`
   }
 `
 const ChartIcon = styled.div`
+  display:flex;
+  justify-content: center;
   margin: 5px 0 10px;
   padding: 10px;
   border: 3px solid skyblue;
@@ -358,6 +392,8 @@ const ChartIcon = styled.div`
   }
 `
 const SearchIcon = styled.div`
+  display:flex;
+  justify-content: center;
   padding: 10px;
   border: 3px solid #7BA949;
   border-radius: 10px;
@@ -379,17 +415,12 @@ const MenuIcon = styled.div`
   border-radius: 10px;
   transition: .2s;
   cursor: pointer;
-  /* :hover{
-    transform: scale(1.2);
-    background-color: #F2DA00;
-    color: black;
-  } */
   @media screen and (max-width: 512px){
-    display: block;
+    display:flex;
+    justify-content: center;
     margin: 0;
   }
 `
-
 const Span = styled.span``
 
 const Loc = styled.div`
@@ -458,5 +489,83 @@ const LocList = styled.div`
     border-bottom: 1px solid transparent ;
     border-radius: 10px;
     font-weight: 1000;
+  }
+`
+const SearchBack = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: white;
+  opacity: 0.5;
+`
+const SearchDiv = styled.div`
+  width: 400px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -250px 0 0 -200px;
+  background-color: #7BA949;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  @media screen and (max-width: 512px){
+    width: 300px;
+    height: 400px;
+    margin: -220px 0 0 -150px;
+  }
+`
+const InputDiv = styled.div`
+  position: relative;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+`
+const Input = styled.input`
+  border: none;
+  border-bottom: 3px solid black;
+  padding: 5px 15px 5px 45px;
+  outline: none;
+  font-size: 20px;
+  font-weight: 800;
+  @media screen and (max-width: 512px){
+    font-size: 17px;
+    padding: 0 12px 4px 42px;
+  }
+`
+const SearchSpan = styled.span`
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  @media screen and (max-width: 512px){
+    top: 5px;
+  }
+`
+const ResultDiv = styled.div`
+  width: 100%;
+  height: 90%;
+  margin-top: 20px;
+  border: 3px solid #eee;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: auto;
+`
+const CloseBtn = styled.span`
+  position: absolute;
+  top: 0;
+  right: 6px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  @media screen and (max-width: 512px){
+    font-size: 30px;
   }
 `

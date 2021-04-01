@@ -5,7 +5,7 @@ export const open = () => ({ type: OPEN })
 export const close = () => ({ type: CLOSE })
 
 const initialState = {
-  isOpen: false
+  isOpen: true
 }
 
 const isOpen = (state = initialState, action) => {

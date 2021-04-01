@@ -7,6 +7,9 @@ const globalStyles = createGlobalStyle`
         text-decoration: none;
         color: inherit;
     }
+    a:hover{
+        text-decoration: none;
+    }
     *{
         box-sizing: boerder-box;
     }

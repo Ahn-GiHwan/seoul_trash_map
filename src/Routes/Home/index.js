@@ -8,7 +8,7 @@ function Index() {
   return (
     <Container>
       <Main>
-        <Title>서울시 가로쓰레기통</Title>
+        <Title>서울시 가로휴지통</Title>
         <Icons>
           <Link to='/map'>
             <MapIcon className="mapIcon">
@@ -75,15 +75,17 @@ const Title = styled.span`
    font-size: 30px;
   }
 `
-
 const Icons = styled.div`
   width: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin-top: 20px;
 `
 const MapIcon = styled.div`
+  display:flex;
+  justify-content: center;
   padding: 10px;
+  margin-right: 10px;
   border: 3px solid #FFA500;
   border-radius: 10px;
   transition: .2s;
@@ -95,7 +97,10 @@ const MapIcon = styled.div`
   }
 `
 const ChartIcon = styled.div`
+  display:flex;
+  justify-content: center;
   padding: 10px;
+  margin-left: 10px;
   border: 3px solid skyblue;
   border-radius: 10px;
   transition: .2s;
@@ -106,7 +111,9 @@ const ChartIcon = styled.div`
     color: white;
   }
 `
-const Span = styled.span``
+const Span = styled.span`
+  text-decoration: none;
+`
 
 const InfoSection = styled.section`
   position:absolute;

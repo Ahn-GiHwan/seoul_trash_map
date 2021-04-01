@@ -4,7 +4,6 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import '../../css/icon.css'
 import _ from 'lodash'
 import jsonfile from '../../DATA/address.json'
@@ -49,7 +48,7 @@ const chartConfigs = {
   dataFormat: 'json',
   dataSource: {
     chart: {
-      caption: "서울특별시 자치구별 가로쓰레기통 갯수",
+      caption: "서울특별시 자치구별 휴지통 현황",
       subCaption: "최신 날짜 : 2019.9",
       theme: "fusion",
       baseFont: 'Hi Melody, cursive',
@@ -58,12 +57,20 @@ const chartConfigs = {
   },
 };
 
+const back = () => {
+  window.history.back()
+}
+
 function index() {
   return (
     <Container>
       <ChartDiv>
         <ReactFC {...chartConfigs} />
-        <Link to='/'><Span className="material-icons size2">keyboard_backspace</Span></Link>
+        <Span
+          className="material-icons size2"
+          onClick={back}>
+          arrow_back
+        </Span>
       </ChartDiv>
     </Container>
   );
@@ -87,7 +94,7 @@ const ChartDiv = styled.div`
   height: fit-content;
   background-color: skyblue;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   @media screen and (max-width: 512px){
     width: 95vw;
     padding: 5px;
@@ -119,6 +126,4 @@ const Span = styled.span`
     right: -10px;
   }
 }
-
-
 `
