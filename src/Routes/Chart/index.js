@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
@@ -8,62 +8,100 @@ import '../../css/icon.css'
 import _ from 'lodash'
 import jsonfile from '../../DATA/address.json'
 
-const file = jsonfile // 원본 파일
+function Index() {
+  const [select, setSelect] = useState('서울특별시')
+  const file = jsonfile // 원본 파일
 
-const createDate = (file) => {
-  const uniqFile = _.uniqBy(file, '자치구명') // 자치구명 중복제거
+  const uniqFile = () => {
+    const uniqFile = _.uniqBy(file, '자치구명')
 
-  uniqFile.sort((a, b) => {
-    return a.자치구명 < b.자치구명 ? -1 : 1;
-  })
-
-  let data = []
-
-  for (let i = 0; i < uniqFile.length; i++) {
-    data.push({ label: uniqFile[i].자치구명, value: 0 })
+    uniqFile.sort((a, b) => {
+      return a.자치구명 < b.자치구명 ? -1 : 1;
+    })
+    return uniqFile
   }
-  // 자치구명만 빼서 새로운 배열객체데이터 생성
 
-  let num = 0
-  for (let i = 0; i < data.length; i++) {
-    num = 0
-    for (let j = 0; j < file.length; j++) {
-      if (data[i].label === file[j].자치구명) {
-        num = num + 1;
+  const seoul = () => {
+
+    let data = []
+
+    for (let i = 0; i < uniqFile().length; i++) {
+      data.push({ label: uniqFile()[i].자치구명, value: 0 })
+    }
+    // 자치구명만 빼서 새로운 배열객체데이터 생성
+
+    let num = 0
+    for (let i = 0; i < data.length; i++) {
+      num = 0
+      for (let j = 0; j < file.length; j++) {
+        if (data[i].label === file[j].자치구명) {
+          num = num + 1;
+        }
+      }
+      data[i].value = num
+    }
+    // 자치구명의 갯수 빼서 저장
+
+    return data
+  }
+
+  const borough = () => {
+    let data = []
+    for (let i = 0; i < file.length; i++) {
+      if (file[i].자치구명 === select) {
+        data.push({ label: file[i]['도로(가로)명'], value: 0 })
       }
     }
-    data[i].value = num
+
+    let num = 0
+    let chartData = _.uniqBy(data, 'label')
+
+    for (let i = 0; i < chartData.length; i++) {
+      num = 0
+      for (let j = 0; j < data.length; j++) {
+        if (chartData[i].label === data[j].label) {
+          num = num + 1;
+        }
+      }
+      chartData[i].value = num
+    }
+
+    return chartData
   }
-  // 자치구명의 갯수 빼서 저장
 
-  return data
-}
+  ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
+  const back = () => {
+    window.history.back()
+  }
 
-const chartConfigs = {
-  type: 'column2d',
-  width: '100%',
-  height: 500,
-  dataFormat: 'json',
-  dataSource: {
-    chart: {
-      caption: "서울특별시 자치구별 휴지통 현황",
-      subCaption: "최신 날짜 : 2019.9",
-      theme: "fusion",
-      baseFont: 'Hi Melody, cursive',
+  const chartData =
+    select === '서울특별시' ? seoul() : borough()
+
+  const chartConfigs = {
+    type: 'column2d',
+    width: '100%',
+    height: 500,
+    dataFormat: 'json',
+    dataSource: {
+      chart: {
+        caption: `${select} 휴지통 현황`,
+        subCaption: "최신 날짜 : 2019.9",
+        theme: "fusion",
+        baseFont: 'Hi Melody, cursive',
+      },
+      data: chartData
     },
-    data: createDate(file)
-  },
-};
+  };
 
-const back = () => {
-  window.history.back()
-}
-
-function index() {
   return (
     <Container>
+      <Select onChange={(e) => { setSelect(e.target.value) }}>
+        <Option value='서울특별시'>서울특별시</Option>
+        {uniqFile().map((loc, i) => {
+          return (<Option value={loc.자치구명} key={i}>{loc.자치구명}</Option>)
+        })}
+      </Select>
       <ChartDiv>
         <ReactFC {...chartConfigs} />
         <Span
@@ -76,17 +114,44 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
 
 const Container = styled.section`
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 512px){
     height: 80vh;
   }
+`
+const Select = styled.select`
+  font-size: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  /* border: 1px solid #5D62B5; */
+  /* border-bottom: 3px solid #5D62B5; */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  outline: none;
+  /* appearance:none; */
+  ::-webkit-scrollbar{
+    width: 5px;
+    background-color: gray;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #FFA500;
+  }
+`
+
+const Option = styled.option`
+  font-size: 15px;
+  border: 4px solid black;
+
+  /* text-decoration: underline; */
+  /* background-color: red; */
 `
 const ChartDiv = styled.div`
   position: relative;
