@@ -44,8 +44,8 @@ ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const chartConfigs = {
   type: 'column2d',
-  width: 600,
-  height: 400,
+  width: '100%',
+  height: 500,
   dataFormat: 'json',
   dataSource: {
     chart: {
@@ -77,14 +77,21 @@ const Container = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 512px){
+    height: 80vh;
+  }
 `
 const ChartDiv = styled.div`
   position: relative;
-  width: fit-content;
+  width: 80vw;
   height: fit-content;
   background-color: skyblue;
   border-radius: 10px;
   padding: 20px;
+  @media screen and (max-width: 512px){
+    width: 95vw;
+    padding: 5px;
+  }
 `
 const Span = styled.span`
   position: absolute;

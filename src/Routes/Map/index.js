@@ -18,6 +18,7 @@ function Index() {
   const [nowLoc, setNowLoc] = useState({ lat: 37.555946, lng: 126.972317 })
   const [markerLoc, setMarkerLoc] = useState({ lat: 0, lng: 0 })
   const [zoom, setZoom] = useState(15)
+
   return (
     <Container>
       <Nav
@@ -41,10 +42,6 @@ function Index() {
 
 function Map({ nowLoc, setNowLoc, markerLoc, zoom }) {
   const navermaps = window.naver.maps;
-  // const dispatch = useDispatch()
-  // const onClose = () => {
-  //   dispatch({ type: 'CLOSE' })
-  // }
   return (
     <NaverMap style={{ width: "100%", height: "100%" }}
       // onClick={onClose}
@@ -126,11 +123,26 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
   const changeIsOpen = () => isOpen ? onClose() : onOpen()
   const isShowState = () => isOpen ? setWidth({ 'marginLeft': '-500px' }) : setWidth({ 'marginLeft': '0' })
   const chageBorder = () => isOpen ? setBorder({ 'borderRight': '5px solid #FFA500' }) : setBorder({ 'borderRight': '5px solid #eee' })
+  const changeBtn = () => {
+    const btnEl = document.querySelector('.btn')
+    if (isOpen) {
+      btnEl.style.backgroundColor = 'white'
+    } else {
+      btnEl.style.backgroundColor = '#F2DA00'
 
+    }
+  }
+  const btnEl = document.querySelector('.btn')
+  console.log(btnEl)
   const onClickBtn = () => {
     changeIsOpen()
     isShowState()
     chageBorder()
+  }
+
+  const onClickBtn_phone = () => {
+    changeIsOpen()
+    changeBtn()
   }
 
   const onChangeLoc = (loc) => {
@@ -219,6 +231,13 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
             search
             </Span>
         </SearchIcon>
+        <MenuIcon onClick={onClickBtn_phone} className="btn" >
+          <Span
+            className='material-icons size1'
+            style={{ 'transform': 'scale(1.1)', 'fontWeight': '1000' }}>
+            {isOpen ? 'clear' : 'menu'}
+          </Span>
+        </MenuIcon>
       </Bar>
       <State style={width}>
         {view}
@@ -236,6 +255,7 @@ const Container = styled.section`
   width: 100%;
   height: 100vh;
 `
+
 // navbar css
 const Navbar = styled.nav`
   padding:0;
@@ -245,6 +265,13 @@ const Navbar = styled.nav`
   height: 100vh;
   display: flex;
   width:fit-content;
+  @media screen and (max-width: 512px){
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 10vh;
+    width: 100%;
+  }
 `
 const Bar = styled.div`
   position: relative;
@@ -258,6 +285,15 @@ const Bar = styled.div`
   border-right: 5px solid #FFA500;
   z-index: 2;
   transition: .7s;
+  @media screen and (max-width: 512px){
+    width: 100%;
+    height: 10vh;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+    align-content: center;
+    border-right: 0px solid;
+  }
 `
 const State = styled.div`
   position: relative;
@@ -301,6 +337,9 @@ const HomeIcon = styled.div`
     background-color: #FFA500;
     color: white;
   }
+  @media screen and (max-width: 512px){
+    margin: 0;
+  }
 `
 const ChartIcon = styled.div`
   margin: 5px 0 10px;
@@ -314,6 +353,9 @@ const ChartIcon = styled.div`
     background-color: skyblue;
     color: white;
   }
+  @media screen and (max-width: 512px){
+    margin: 0;
+  }
 `
 const SearchIcon = styled.div`
   padding: 10px;
@@ -326,7 +368,28 @@ const SearchIcon = styled.div`
     background-color: #7BA949;
     color: white;
   }
+  @media screen and (max-width: 512px){
+    margin: 0;
+  }
 `
+const MenuIcon = styled.div`
+  display: none;
+  padding: 10px;
+  border: 3px solid #F2DA00;
+  border-radius: 10px;
+  transition: .2s;
+  cursor: pointer;
+  /* :hover{
+    transform: scale(1.2);
+    background-color: #F2DA00;
+    color: black;
+  } */
+  @media screen and (max-width: 512px){
+    display: block;
+    margin: 0;
+  }
+`
+
 const Span = styled.span``
 
 const Loc = styled.div`

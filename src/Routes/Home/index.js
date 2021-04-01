@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import '../../css/icon.css'
+// import excel from '../../img/excel.png'
 
 function Index() {
   return (
@@ -25,7 +26,7 @@ function Index() {
             target='_blank'
             alt="서울 열린데이터 광장"
             rel="noreferrer">
-            쓰레기통 정보 엑셀 다운로드 바로가기
+            파일 다운로드
           </InfoLink>
         </InfoSection>
       </Main>
@@ -44,9 +45,14 @@ const Container = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 512px){
+    width: 80vw;
+    height: 80vh;
+    margin: 0 auto;
+  }
 `
 const Main = styled.div`
-  width: fit-content;
+  width: 60vw;
   height: 300px;
   background-color: #eee;
   display: flex;
@@ -55,11 +61,19 @@ const Main = styled.div`
   align-items: center;
   border-radius: 10px;
   position: relative;
+  @media screen and (max-width: 512px){
+    width: 80vw;
+  }
 `
 const Title = styled.span`
+  width: 100%;
   font-size: 50px;
   font-weight: 700;
   margin: 10px;
+  text-align: center;
+  @media screen and (max-width: 512px){
+   font-size: 30px;
+  }
 `
 
 const Icons = styled.div`
@@ -98,7 +112,8 @@ const InfoSection = styled.section`
   position:absolute;
   bottom:10px;
   display: flex;
-
+  justify-content: center;
+  align-items: center;
 `
 const InfoLink = styled.a`
   transition:0.3s;
