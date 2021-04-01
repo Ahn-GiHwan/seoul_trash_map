@@ -524,12 +524,17 @@ const SearchDiv = styled.div`
   }
 `
 const InputDiv = styled.div`
+  width: 300px;
   position: relative;
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+  @media screen and (max-width: 512px){
+    width: 200px;
+  }
 `
 const Input = styled.input`
+  width: 100%;
   border: none;
   border-bottom: 3px solid black;
   padding: 5px 15px 5px 45px;
