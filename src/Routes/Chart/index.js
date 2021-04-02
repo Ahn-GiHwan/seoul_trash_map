@@ -75,15 +75,24 @@ function Index() {
     window.history.back()
   }
 
-  const checked = () => {
-    // console.log('select', select)
+  const checked = (e) => {
     let Els = document.querySelectorAll('.list');
     for (let i = 0; i < Els.length; i++) {
-      if (Els[i].innerHTML === select) {
-        // console.log(Els[i].innerHTML)
-        Els[i].style.backgroundColor = 'red';
+      if (Els[i].innerHTML === e.target.value) {
+        Els[i].style.boxShadow = 'none';
       } else {
-        Els[i].style.backgroundColor = '#fff';
+        Els[i].style.boxShadow = '4px 4px gray';
+      }
+    }
+  }
+
+  const defaultChecked = (e) => {
+    let Els = document.querySelectorAll('.list');
+    for (let i = 0; i < Els.length; i++) {
+      if (Els[i].innerHTML === '전체') {
+        Els[i].style.boxShadow = 'none';
+      } else {
+        Els[i].style.boxShadow = '4px 4px gray';
       }
     }
   }
@@ -117,21 +126,20 @@ function Index() {
         <Title><Span className='material-icons size2'>location_on</Span>지역</Title>
         <Lists>
           <List
-            onChange={() => {
+            onClick={e => {
               setSelect('서울특별시')
-              checked()
+              defaultChecked(e)
             }}>
             <Input type="radio" id='서울특별시' value='서울특별시' />
-            <Label htmlFor='서울특별시' className='list'>전체</Label>
+            <Label htmlFor='서울특별시' className='list' style={{ 'boxShadow': 'none' }}>전체</Label>
           </List>
           {uniqFile().map((loc, i) => {
             return (
               <List
                 key={i}
-                onClick={e => {
-                  console.log(e)
+                onClickCapture={e => {
                   setSelect(e.target.value)
-                  checked()
+                  checked(e)
                 }}
               >
                 <Input type="radio" id={loc.자치구명} value={loc.자치구명} />
@@ -158,7 +166,7 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 512px){
-    height: 80vh;
+    height: 85vh;
   }
 `
 const Menus = styled.div`
@@ -167,6 +175,9 @@ const Menus = styled.div`
   background-color: skyblue;
   border-radius: 10px;
   margin-bottom: 10px;
+  @media screen and (max-width: 512px) {
+    height: 100px;
+  }
 `
 const Title = styled.div`
   width: 98%;
@@ -177,11 +188,29 @@ const Title = styled.div`
   font-weight: 1000;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 512px) {
+    font-size: 25px;
+    margin: 3px;
+    padding: 5px;
+  }
 `
 const Lists = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 7px;
+  ::-webkit-scrollbar{
+    width: 5px;
+    border-radius: 10px;
+    background-color: #eee;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #5D62B5;
+    border-radius: 10px;
+  }
+  @media screen and (max-width: 512px) {
+    height: 50px;
+    overflow: auto;
+  }
 `
 const List = styled.div``
 const Input = styled.input``
@@ -190,7 +219,7 @@ const Span = styled.span``
 const Label = styled.label`
   width: 80px;
   text-align: center;
-  font-size:20px;
+  font-size:15px;
   box-shadow: 4px 4px gray;
   border-radius: 10px;
   padding: 5px;
@@ -199,23 +228,24 @@ const Label = styled.label`
   background-color: #fff;
   transition: .3s;
   border: 1px solid #fff;
-  :hover {
-    border: 1px solid skyblue;
-    box-shadow: none;
-    background-color: skyblue;
-    color: #fff;
+  @media screen and (max-width: 512px) {
+    margin: 5px 2px;
+    width: 49px; 
+    font-size: 10px;
+    font-weight: 1000;
   }
 `
 const ChartDiv = styled.div`
   position: relative;
   width: 80vw;
-  height: fit-content;
+  height: 56vh;
   background-color: skyblue;
   border-radius: 10px;
   padding: 10px;
   @media screen and (max-width: 512px){
     width: 95vw;
     padding: 5px;
+    height: fit-content;
   }
 `
 const BackIcon = styled.span`
@@ -232,6 +262,10 @@ const BackIcon = styled.span`
   transition: .2s;
   :hover{
     transform: scale(1.2)
+  }
+  @media screen and (max-width: 512px) {
+    top: 0;
+    right: 0;
   }
   
   @keyframes slidein {
