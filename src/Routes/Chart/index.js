@@ -75,8 +75,20 @@ function Index() {
     window.history.back()
   }
 
-  const chartData =
-    select === '서울특별시' ? seoul() : borough()
+  const checked = () => {
+    // console.log('select', select)
+    let Els = document.querySelectorAll('.list');
+    for (let i = 0; i < Els.length; i++) {
+      if (Els[i].innerHTML === select) {
+        // console.log(Els[i].innerHTML)
+        Els[i].style.backgroundColor = 'red';
+      } else {
+        Els[i].style.backgroundColor = '#fff';
+      }
+    }
+  }
+
+  const chartData = select === '서울특별시' ? seoul() : borough()
 
   const chartConfigs = {
     type: 'column2d',
@@ -96,19 +108,41 @@ function Index() {
 
   return (
     <Container>
-      <Select onChange={(e) => { setSelect(e.target.value) }}>
-        <Option value='서울특별시'>서울특별시</Option>
-        {uniqFile().map((loc, i) => {
-          return (<Option value={loc.자치구명} key={i}>{loc.자치구명}</Option>)
-        })}
-      </Select>
-      <ChartDiv>
-        <ReactFC {...chartConfigs} />
-        <Span
+      <Menus>
+        <BackIcon
           className="material-icons size2"
           onClick={back}>
           arrow_back
-        </Span>
+        </BackIcon>
+        <Title><Span className='material-icons size2'>location_on</Span>지역</Title>
+        <Lists>
+          <List
+            onChange={() => {
+              setSelect('서울특별시')
+              checked()
+            }}>
+            <Input type="radio" id='서울특별시' value='서울특별시' />
+            <Label htmlFor='서울특별시' className='list'>전체</Label>
+          </List>
+          {uniqFile().map((loc, i) => {
+            return (
+              <List
+                key={i}
+                onClick={e => {
+                  console.log(e)
+                  setSelect(e.target.value)
+                  checked()
+                }}
+              >
+                <Input type="radio" id={loc.자치구명} value={loc.자치구명} />
+                <Label htmlFor={loc.자치구명} className='list'>{loc.자치구명}</Label>
+              </List>
+            )
+          })}
+        </Lists>
+      </Menus>
+      <ChartDiv>
+        <ReactFC {...chartConfigs} />
       </ChartDiv>
     </Container>
   );
@@ -127,31 +161,50 @@ const Container = styled.section`
     height: 80vh;
   }
 `
-const Select = styled.select`
-  font-size: 20px;
-  padding: 10px;
+const Menus = styled.div`
+  position: relative;
+  width: 80%;
+  background-color: skyblue;
+  border-radius: 10px;
   margin-bottom: 10px;
-  /* border: 1px solid #5D62B5; */
-  /* border-bottom: 3px solid #5D62B5; */
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  outline: none;
-  /* appearance:none; */
-  ::-webkit-scrollbar{
-    width: 5px;
-    background-color: gray;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #FFA500;
-  }
 `
+const Title = styled.div`
+  width: 98%;
+  border-bottom: 3px solid #eee;
+  margin: 10px;
+  font-size: 30px;
+  padding: 10px;
+  font-weight: 1000;
+  display: flex;
+  align-items: center;
+`
+const Lists = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+`
+const List = styled.div``
+const Input = styled.input``
+const Span = styled.span``
 
-const Option = styled.option`
-  font-size: 15px;
-  border: 4px solid black;
-
-  /* text-decoration: underline; */
-  /* background-color: red; */
+const Label = styled.label`
+  width: 80px;
+  text-align: center;
+  font-size:20px;
+  box-shadow: 4px 4px gray;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: .3s;
+  border: 1px solid #fff;
+  :hover {
+    border: 1px solid skyblue;
+    box-shadow: none;
+    background-color: skyblue;
+    color: #fff;
+  }
 `
 const ChartDiv = styled.div`
   position: relative;
@@ -165,10 +218,10 @@ const ChartDiv = styled.div`
     padding: 5px;
   }
 `
-const Span = styled.span`
+const BackIcon = styled.span`
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: -20px;
+  right: -20px;
   border: 3px solid skyblue;
   border-radius: 50%;
   background-color: white;
@@ -183,12 +236,12 @@ const Span = styled.span`
   
   @keyframes slidein {
   from { 
-    top: -10px;
+    top: -20px;
     right: 300px;
   }
   to { 
-    top: -10px;
-    right: -10px;
+    top: -20px;
+    right: -20px;
   }
 }
 `
