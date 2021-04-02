@@ -15,6 +15,7 @@ const globalStyles = createGlobalStyle`
 
     a:hover{
         text-decoration: none;
+        color: black;
     }
 
     *{

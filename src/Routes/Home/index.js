@@ -22,12 +22,11 @@ function Index() {
           </Link>
         </Icons>
         <InfoSection>
-          <img src={excel} alt='dd' />
           <InfoLink href="http://data.seoul.go.kr/dataList/OA-15069/F/1/datasetView.do"
             target='_blank'
             alt="서울 열린데이터 광장"
-            rel="noreferrer"
-          >
+            rel="noreferrer">
+            <Img src={excel} alt='excel_icon' />
             파일 다운로드
           </InfoLink>
         </InfoSection>
@@ -123,8 +122,6 @@ const InfoSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-const InfoLink = styled.a`
   transition:0.3s;
   :hover{
     transform:scale(1.1);
@@ -133,3 +130,7 @@ const InfoLink = styled.a`
     color: black;
   }
 `
+const Img = styled.img`
+  margin: -9px 0;
+`
+const InfoLink = styled.a``
