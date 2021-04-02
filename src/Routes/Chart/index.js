@@ -80,8 +80,12 @@ function Index() {
     for (let i = 0; i < Els.length; i++) {
       if (Els[i].innerHTML === e.target.value) {
         Els[i].style.boxShadow = 'none';
+        Els[i].style.transform = 'scale(1.2)';
+        Els[i].style.border = '1px solid #FFA500';
       } else {
         Els[i].style.boxShadow = '4px 4px gray';
+        Els[i].style.transform = 'scale(1)';
+        Els[i].style.border = '1px solid #fff';
       }
     }
   }
@@ -91,8 +95,12 @@ function Index() {
     for (let i = 0; i < Els.length; i++) {
       if (Els[i].innerHTML === '전체') {
         Els[i].style.boxShadow = 'none';
+        Els[i].style.transform = 'scale(1.2)';
+        Els[i].style.border = '1px solid #FFA500';
       } else {
         Els[i].style.boxShadow = '4px 4px gray';
+        Els[i].style.transform = 'scale(1)';
+        Els[i].style.border = '1px solid #fff';
       }
     }
   }
@@ -123,7 +131,7 @@ function Index() {
           onClick={back}>
           arrow_back
         </BackIcon>
-        <Title><Span className='material-icons'>location_on</Span>지역</Title>
+        <Title><Span className='material-icons'>location_on</Span>지역(25)</Title>
         <Lists>
           <List
             onClick={e => {
@@ -131,7 +139,16 @@ function Index() {
               defaultChecked(e)
             }}>
             <Input type="radio" id='서울특별시' value='서울특별시' />
-            <Label htmlFor='서울특별시' className='list' style={{ 'boxShadow': 'none' }}>전체</Label>
+            <Label
+              htmlFor='서울특별시'
+              className='list'
+              style={{
+                'boxShadow': 'none',
+                'border': '1px solid #FFA500',
+                'transform': 'scale(1.2)'
+              }}>
+              전체
+            </Label>
           </List>
           {uniqFile().map((loc, i) => {
             return (
