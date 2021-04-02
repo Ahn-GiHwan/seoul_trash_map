@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import '../../css/icon.css'
-// import excel from '../../img/excel.png'
+import excel from '../../img/excel.png'
 
 function Index() {
   return (
@@ -22,10 +22,12 @@ function Index() {
           </Link>
         </Icons>
         <InfoSection>
+          <img src={excel} alt='dd' />
           <InfoLink href="http://data.seoul.go.kr/dataList/OA-15069/F/1/datasetView.do"
             target='_blank'
             alt="서울 열린데이터 광장"
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             파일 다운로드
           </InfoLink>
         </InfoSection>

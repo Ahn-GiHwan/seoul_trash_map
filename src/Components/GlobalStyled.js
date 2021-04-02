@@ -22,7 +22,8 @@ const globalStyles = createGlobalStyle`
     }
     
     body{
-      font-family: 'Hi Melody', cursive;
+      /* font-family: 'Gamja Flower', cursive; */
+      font-family: 'Poor Story', cursive;
       user-select: none;
     }
 `;

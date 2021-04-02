@@ -43,22 +43,16 @@ function Index() {
 function Map({ nowLoc, setNowLoc, markerLoc, zoom }) {
   const navermaps = window.naver.maps;
   return (
-    <NaverMap style={{ width: "100%", height: "100%" }}
-      // onClick={onClose}
+    <NaverMap
+      style={{ width: "100%", height: "100%" }}
       zoom={zoom} center={nowLoc}>
-      <Marker id="search__marker"
-        style={{
-          width: "100%",
-          height: "400px",
-        }}
+      <Marker
+        style={{ width: "100%", height: "400px" }}
         position={new navermaps.LatLng(markerLoc.lat, markerLoc.lng)}
         animation={1}
         defaultZoom={15}
-        onClick={() => {
-          setNowLoc(nowLoc)
-          console.log(nowLoc)
-        }}
-      ></Marker>
+        onClick={() => setNowLoc(nowLoc)}>
+      </Marker>
     </NaverMap>
   );
 }
@@ -181,7 +175,7 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
         alert(err);
       }
     );
-    setZoom(17)
+    setZoom(19)
   };
 
   const stateLists = loc === '' ? uniqDate(file).map((data, i) => {
@@ -191,7 +185,11 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
         <Icons>
           <Span
             className="material-icons size2"
-            style={{ 'transform': 'scale(1.2)', backgroundColor: '#F3D92C', borderRadius: '5px 5px 5px 0' }}>
+            style={{
+              transform: 'scale(1.2)',
+              backgroundColor: '#F3D92C',
+              borderRadius: '5px 5px 5px 0'
+            }}>
             chat_bubble_outline</Span>
           <Alert>
             {data.value}
@@ -204,13 +202,13 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
       <Title>{loc}
         <CancelBtn
           className='material-icons'
-          onClick={() => { onChangeLoc('') }}>backspace
+          onClick={() => onChangeLoc('')}>backspace
         </CancelBtn>
       </Title>
       <div>
         {filters(loc).map((data, i) => {
           return (
-            <LocList key={i} onClick={(e) => { onClickInfo(e.target.innerHTML) }}>
+            <LocList key={i} onClick={(e) => onClickInfo(e.target.innerHTML)}>
               {data['도로(가로)명'] + ' ' + data.설치위치}
             </LocList>
           )
@@ -225,14 +223,19 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
       <SearchDiv>
         <InputDiv>
           <SearchSpan className='material-icons size2'>search</SearchSpan>
-          <Input type="text" placeholder='ex) 노원구 하계역' className='input' autoFocus />
+          <Input
+            type="text"
+            placeholder='ex) 노원구 하계역'
+            className='input'
+            autoFocus />
         </InputDiv>
         <ResultDiv>
           아직 서비스 준비중...
         </ResultDiv>
         <CloseBtn
           className='material-icons'
-          onClick={() => setIsSearch(false)}>
+          onClick={() => setIsSearch(false)}
+        >
           backspace
         </CloseBtn>
       </SearchDiv>
@@ -285,8 +288,6 @@ const Container = styled.section`
   width: 100%;
   height: 100vh;
 `
-
-// navbar css
 const Navbar = styled.nav`
   padding:0;
   position: absolute;

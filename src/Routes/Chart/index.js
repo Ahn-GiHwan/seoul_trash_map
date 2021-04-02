@@ -109,7 +109,7 @@ function Index() {
         caption: `${select} 휴지통 현황`,
         subCaption: "최신 날짜 : 2019.9",
         theme: "fusion",
-        baseFont: 'Hi Melody, cursive',
+        baseFont: 'Gamja Flower, cursive',
       },
       data: chartData
     },
@@ -119,11 +119,11 @@ function Index() {
     <Container>
       <Menus>
         <BackIcon
-          className="material-icons size2"
+          className="material-icons"
           onClick={back}>
           arrow_back
         </BackIcon>
-        <Title><Span className='material-icons size2'>location_on</Span>지역</Title>
+        <Title><Span className='material-icons'>location_on</Span>지역</Title>
         <Lists>
           <List
             onClick={e => {
@@ -166,7 +166,7 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 512px){
-    height: 85vh;
+    height: 90vh;
   }
 `
 const Menus = styled.div`
@@ -189,7 +189,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   @media screen and (max-width: 512px) {
-    font-size: 25px;
+    font-size: 15px;
     margin: 3px;
     padding: 5px;
   }
@@ -214,8 +214,13 @@ const Lists = styled.div`
 `
 const List = styled.div``
 const Input = styled.input``
-const Span = styled.span``
 
+const Span = styled.span`
+  font-size: 30px;
+  @media screen and (max-width: 512px) {
+    font-size: 20px;
+  }
+`
 const Label = styled.label`
   width: 80px;
   text-align: center;
@@ -252,6 +257,7 @@ const BackIcon = styled.span`
   position: absolute;
   top: -20px;
   right: -20px;
+  font-size: 30px;
   border: 3px solid skyblue;
   border-radius: 50%;
   background-color: white;
@@ -266,16 +272,27 @@ const BackIcon = styled.span`
   @media screen and (max-width: 512px) {
     top: 0;
     right: 0;
+    font-size: 26px;
+    animation-name: slideinResponsive;
   }
-  
   @keyframes slidein {
-  from { 
-    top: -20px;
-    right: 300px;
+    from { 
+      top: -20px;
+      right: 300px;
+    }
+    to { 
+      top: -20px;
+      right: -20px;
+    }
   }
-  to { 
-    top: -20px;
-    right: -20px;
+  @keyframes slideinResponsive {
+    from { 
+      top: 0;
+      right: 300px;
+    }
+    to { 
+      top: 0;
+      right: 0;
+    }
   }
-}
 `
