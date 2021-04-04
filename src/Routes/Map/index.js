@@ -123,7 +123,7 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
   }, [isOpen])
 
   const changeIsOpen = () => isOpen ? onClose() : onOpen()
-  const isShowState = () => isOpen ? setWidth({ 'marginLeft': '0' }) : setWidth({ 'marginLeft': '-500px' })
+  const isShowState = (True, False) => isOpen ? setWidth({ 'marginLeft': '0' }) : setWidth({ 'marginLeft': '-500px' })
   const chageBorder = () => isOpen ? setBorder({ 'borderRight': '5px solid #eee' }) : setBorder({ 'borderRight': '5px solid #FFA500' })
   const changeBtn = () => {
     const btnEl = document.querySelector('.btn')
@@ -136,13 +136,18 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
   }
 
   const onClickBtn = () => {
+    // const True = { 'marginLeft': '0' }
+    // const False = { 'marginLeft': '-500px' }
     changeIsOpen()
     isShowState()
     chageBorder()
   }
 
   const onClickBtn_phone = () => {
+    // const True = { "marginBottom": 0 }
+    // const False = { "marginBottom": "-500px" }
     changeIsOpen()
+    isShowState()
     changeBtn()
   }
 
@@ -262,7 +267,10 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
               search
             </Span>
           </SearchIcon>
-          <MenuIcon onClick={onClickBtn_phone} className="btn" >
+          <MenuIcon onClick={() => {
+            onClickBtn_phone()
+            console.log(width)
+          }} className="btn" >
             <Span
               className='material-icons size1'
               style={{ 'transform': 'scale(1.1)', 'fontWeight': '1000' }}>
@@ -324,6 +332,7 @@ const Bar = styled.div`
     align-items: center;
     align-content: center;
     border-right: 0px solid;
+    border-top: 1px solid orange;
   }
 `
 const State = styled.div`
@@ -342,6 +351,19 @@ const State = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background-color: #FFA500;
+  }
+  @media screen and (max-width: 512px) {
+    position: absolute;
+    top: -220px;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    border-top: 3px double orange;
+
+    ::-webkit-scrollbar{
+    width: 5px;
+    background-color: #eee;
+  }
   }
 `
 const ForwardIcon = styled.span`
@@ -443,6 +465,9 @@ const Loc = styled.div`
     font-weight: 1000;
     padding-left: 30px;
   }
+  @media screen and (max-width: 512px) {
+
+  }
 `
 const Icons = styled.div`
   position: relative;
@@ -453,9 +478,7 @@ const Alert = styled.div`
   top: 6%;
   right: 11%;
   position: absolute;
-  /* border-radius: 10px; */
   padding: 3px;
-  /* margin-left: 10px; */
   font-weight: 800;
 `;
 
