@@ -26,7 +26,7 @@ function Index() {
         setZoom={setZoom}
         setMarkerLoc={setMarkerLoc}></Nav>
       <RenderAfterNavermapsLoaded
-        ncpClientId={mapkey} // 자신의 네이버 계정에서 발급받은 Client ID
+        ncpClientId={mapkey}
         error={<p>Maps Load Error</p>}
         loading={<div className="spinner-border"></div>}
       >
@@ -136,16 +136,12 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
   }
 
   const onClickBtn = () => {
-    // const True = { 'marginLeft': '0' }
-    // const False = { 'marginLeft': '-500px' }
     changeIsOpen()
     isShowState()
     chageBorder()
   }
 
   const onClickBtn_phone = () => {
-    // const True = { "marginBottom": 0 }
-    // const False = { "marginBottom": "-500px" }
     changeIsOpen()
     isShowState()
     changeBtn()
@@ -186,7 +182,7 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
   const stateLists = loc === '' ? uniqDate(file).map((data, i) => {
     return (
       <Loc key={i} onClick={() => onClickLoc(data.label)}>
-        {data.label}
+        {i + 1}. {data.label}
         <Icons>
           <Span
             className="material-icons size2"
@@ -207,18 +203,18 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
       <Title>{loc}
         <CancelBtn
           className='material-icons'
-          onClick={() => onChangeLoc('')}>backspace
+          onClick={() => onChangeLoc('')}>arrow_back
         </CancelBtn>
       </Title>
-      <div>
+      <Div>
         {filters(loc).map((data, i) => {
           return (
             <LocList key={i} onClick={(e) => onClickInfo(e.target.innerHTML)}>
-              {data['도로(가로)명'] + ' ' + data.설치위치}
+              {i + 1}. {data['도로(가로)명'] + ' ' + data.설치위치}
             </LocList>
           )
         })}
-      </div>
+      </Div>
     </>
   )
   const searchModal = isSearch ?
@@ -269,7 +265,6 @@ function Nav({ setNowLoc, setMarkerLoc, setZoom }) {
           </SearchIcon>
           <MenuIcon onClick={() => {
             onClickBtn_phone()
-            console.log(width)
           }} className="btn" >
             <Span
               className='material-icons size1'
@@ -344,7 +339,6 @@ const State = styled.div`
   transition:.3s;
   margin-left: -500px;
   overflow: auto;
-  padding: 10px;
   ::-webkit-scrollbar{
     width: 5px;
     background-color: gray;
@@ -457,7 +451,6 @@ const Loc = styled.div`
   font-size: 20px;
   cursor: pointer;
   :hover{
-    transform: scale(1.1);
     background: linear-gradient( to left, #eee, #FFA500 );
     border-top: 1px solid transparent ;
     border-bottom: 1px solid transparent ;
@@ -466,7 +459,8 @@ const Loc = styled.div`
     padding-left: 30px;
   }
   @media screen and (max-width: 512px) {
-
+    font-size: 15px;
+    justify-content: center;
   }
 `
 const Icons = styled.div`
@@ -476,25 +470,34 @@ const Icons = styled.div`
 const Alert = styled.div`
   font-size: 15px;
   top: 6%;
-  right: 11%;
+  right: 6%;
   position: absolute;
   padding: 3px;
   font-weight: 800;
 `;
 
 const Title = styled.p`
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #fff;
   font-size: 30px;
   font-weight: 1000;
   text-align: center;
   border-bottom: 2px solid #eee;
   padding: 10px;
+  @media screen and (max-width: 512px) {
+    font-size: 20px;
+  }
 `
 const CancelBtn = styled.span`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
   cursor: pointer;
+  @media screen and (max-width: 512px) {
+    right: 10px;
+  }
 `
 const LocList = styled.div`
   display: flex;
@@ -507,12 +510,14 @@ const LocList = styled.div`
   font-size: 20px;
   cursor: pointer;
   :hover{
-    transform: scale(1.1);
     background: linear-gradient( to left, #eee, skyblue );
     border-top: 1px solid transparent ;
     border-bottom: 1px solid transparent ;
     border-radius: 10px;
     font-weight: 1000;
+  }
+  @media screen and (max-width: 512px) {
+    font-size: 15px;
   }
 `
 const SearchBack = styled.div`
@@ -598,3 +603,5 @@ const CloseBtn = styled.span`
     font-size: 30px;
   }
 `
+
+const Div = styled.div``

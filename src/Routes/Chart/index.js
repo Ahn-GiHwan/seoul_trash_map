@@ -71,7 +71,7 @@ function Index() {
 
   ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-  const back = () => {
+  const Back = () => {
     window.history.back()
   }
 
@@ -128,7 +128,7 @@ function Index() {
       <Menus>
         <BackIcon
           className="material-icons"
-          onClick={back}>
+          onClick={Back}>
           arrow_back
         </BackIcon>
         <Title><Span className='material-icons'>location_on</Span>지역(25)</Title>
