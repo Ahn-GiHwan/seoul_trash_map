@@ -509,6 +509,7 @@ const LocList = styled.div`
   transition: .5s;
   font-size: 20px;
   cursor: pointer;
+  z-index: 1;
   :hover{
     background: linear-gradient( to left, #eee, skyblue );
     border-top: 1px solid transparent ;
