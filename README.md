@@ -14,10 +14,11 @@ useDispatch | react-redux의 기능으로 action함수를 편하게 불러올 �
 Link | Link를 통해 클릭시 이벤트로 컴포넌트 이동을 용이하게 함
 Styled-components | Styled-components를 이용하여 custom 디자인 구성
 Styled-reset | Styled-reset를 통하여 css 초기화
+Responsive Web | 다양한 디바이스 크기에 맞게 레이아웃 자동 맞춤 변환
 Fusioncharts | json데이터를 그래프화 시켜주는 Library이다.
 ___
 ___
-### 이미지 클릭
+### 이미지 클릭 -> 페이지 이동
 [![garo](https://github.com/Ahn-GiHwan/seoul_trash_map/blob/master/public/garo.png?raw=true)](https://garo.netlify.app/)
 
 
