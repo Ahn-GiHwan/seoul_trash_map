@@ -18,6 +18,6 @@ Fusioncharts | json데이터를 그래프화 시켜주는 Library이다.
 ___
 ___
 ### 이미지 클릭
-[![garo](https://github.com/Ahn-GiHwan/movie_app/blob/master/public/garo.png?raw=true)](https://garo.netlify.app/)
+[![garo](https://github.com/Ahn-GiHwan/seoul_trash_map/blob/master/public/garo.png?raw=true)](https://garo.netlify.app/)
 
 
