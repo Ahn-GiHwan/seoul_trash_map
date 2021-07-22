@@ -8,7 +8,8 @@ import GlobalStyles from "./Components/GlobalStyled";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-// import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from "./serviceWorker";
+import reportWebVitals from "./reportWebVitals";
 
 const store = createStore(Reducer, composeWithDevTools());
 
@@ -22,4 +23,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-serviceWorker.register();
+reportWebVitals();
+// serviceWorker.register();
