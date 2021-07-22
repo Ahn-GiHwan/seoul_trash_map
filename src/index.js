@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Router from './Routes'
-import Reducer from './Reducers'
-import GlobalStyles from './Components/GlobalStyled'
+import Router from "./Routes";
+import Reducer from "./Reducers";
+import GlobalStyles from "./Components/GlobalStyled";
 
-import { Provider } from 'react-redux'
-import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 // import * as serviceWorker from './serviceWorker';
 
-const store = createStore(Reducer, composeWithDevTools())
+const store = createStore(Reducer, composeWithDevTools());
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +19,7 @@ ReactDOM.render(
       <GlobalStyles />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
-// serviceWorker.register();
+serviceWorker.register();
