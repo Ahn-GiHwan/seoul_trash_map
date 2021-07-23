@@ -49,5 +49,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "> 서울시에서 운영하는 가로휴지통의 지역별 개수와 지역별 위치를 알 수 있는 웹앱이다.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahn-GiHwan/seoul_trash_map.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahn-GiHwan/seoul_trash_map/issues"
+  },
+  "homepage": "https://github.com/Ahn-GiHwan/seoul_trash_map#readme"
 }
