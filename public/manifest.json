@@ -10,7 +10,7 @@
   "theme_color": "#000000",
   "description": "서울특별시에서 제공하는 가로휴지통 설치현황을 볼 수 있습니다. ",
   "orientation": "any",
-  "prefer_related_applications": "false",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "images/71x71.png",
