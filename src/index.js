@@ -8,7 +8,6 @@ import GlobalStyles from "./Components/GlobalStyled";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import reportWebVitals from "./reportWebVitals";
 
 const store = createStore(Reducer, composeWithDevTools());
 
@@ -21,5 +20,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-reportWebVitals();
