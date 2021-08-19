@@ -8,7 +8,9 @@ function Index() {
   return (
     <Container>
       <Main>
-        <Title>서울시 가로휴지통</Title>
+        <Title>서울시
+          <h1>가로휴지통</h1>
+        </Title>
         <Icons>
           <Link to='/map'>
             <MapIcon className="mapIcon">
