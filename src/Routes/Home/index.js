@@ -66,7 +66,7 @@ const Main = styled.div`
     width: 80vw;
   }
 `
-const Title = styled.span`
+const Title = styled.h1`
   width: 100%;
   font-size: 50px;
   font-weight: 700;
