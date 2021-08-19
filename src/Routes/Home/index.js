@@ -8,9 +8,7 @@ function Index() {
   return (
     <Container>
       <Main>
-        <Title>서울시
-          <h1>가로휴지통</h1>
-        </Title>
+        <Title>서울시 가로휴지통</Title>
         <Icons>
           <Link to='/map'>
             <MapIcon className="mapIcon">
@@ -68,7 +66,7 @@ const Main = styled.div`
     width: 80vw;
   }
 `
-const Title = styled.span`
+const Title = styled.h1`
   width: 100%;
   font-size: 50px;
   font-weight: 700;
